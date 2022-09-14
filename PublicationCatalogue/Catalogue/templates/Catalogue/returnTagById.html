@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Tag Details</title>
+  </head>
+  <body>
+    <h1>Tag Details: </h1>
+    {% if tag %}
+        <h2>Tag Name: {{tag.tagName}}</h2>
+        <p>Tag Descriptor: {{ tag.tagDescriptor }}</p>
+
+        <h2>Articles Registered With Tag</h2>
+        {% if articlesRegisteredWithTag %}
+        <table border="1">
+            <tr>
+                <th>Article Name</th>
+                <th>Keywords</th>
+                <th>Notes</th>
+                <th>Summary</th>
+                <th>Edition</th>
+                <th>Publication(s)</th>
+                <th>Author(s)</th>
+            </tr>
+                {% for article in articlesRegisteredWithTag %}
+                    <tr>
+                        <td><a href="{% url 'article' article.id %}">{{ article.articleName }}</a></td>
+                        <td>{{ article.keywords }}</td>
+                        <td>{{ article.notes }}</td>          
+                        <td>{{ article.summary }}</td>       
+                        <td>                             
+                            {% for edition in article.edition.all %}
+                                <a href="{% url 'edition' edition.id %}">{{ edition.editionName }}</a><br />
+                            {%endfor %}
+                        </td>
+                        <td>
+                            {% for edition in article.edition.all %}
+                                <a href="{% url 'publication' edition.publication.id %}">{{ edition.publication.publicationName }}</a><br />
+                            {%endfor %}
+                        </td>
+                        <td>
+                            {% for author in article.author.all %}
+                                <a href="{% url 'author' author.id %}" > {{ author.authorName }}</a><br />
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+        {% else %}
+            <p>No articles registered with this tag.</p>
+        {% endif %}
+        
+    </table>
+    <h2>Authors Registered With Tag</h2>
+    {% if authorsRegisteredWithTag %}
+    <table border="1">
+        <tr>
+            <th>Author's Name</th>
+            <th>Notes</th>
+        </tr>
+            {% for author in authorsRegisteredWithTag %}
+                <tr>
+                    <td><a href="{% url 'author' author.id %}">{{ author.authorName }}</a></td>
+                    <td>{{ author.notes }}</td>          
+                </tr>
+            {% endfor %}
+    </table>
+    {% else %}
+        <p>No authors registered with this tag.</p>
+    {% endif %}
+
+
+    {% else %}
+        <p>This tag is not available.</p>
+    {% endif %}
+  </body>
+</html>

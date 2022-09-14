@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Articles</title>
+  </head>
+  <body>
+    <h1>List of Articles</h1>
+    {% if articleList %}
+        <ul>
+        {% for article in articleList %}
+            <li><a href="{% url 'article' article.id %}">{{ article.articleName }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles are available.</p>
+    {% endif %}
+
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Tags</title>
+  </head>
+  <body>
+    <h1>List of Tags</h1>
+    {% if tagList %}
+        <ul>
+        {% for tag in tagList %}
+            <li><a href="{% url 'tag' tag.id %}">{{ tag.tagName }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tags are available.</p>
+    {% endif %}
+
+  </body>
+</html>

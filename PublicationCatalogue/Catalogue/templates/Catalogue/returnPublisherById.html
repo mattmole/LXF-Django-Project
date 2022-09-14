@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Publisher Details: </h1>
+    {% if publisher %}
+        <h2>Publisher Name: {{ publisher.publisherName }}</h2>
+        <table border="1">
+            <tr>
+                <th>Publication</th>
+                <th>Notes</th>
+                <th>Type</th>
+            </tr>
+            {% for publication in publications %}
+              <tr>
+                  <td><a href="{% url 'publication' publication.id %}" >{{ publication.publicationName }}</a></td>
+                  <td>{{ publication.publicationNotes }}</td>
+                  <td>{{ publication.publicationType }}</td>          
+              </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No publisher registered with this tag.</p>
+        {% endif %}
+        
+    </table>
+  </body>
+</html>

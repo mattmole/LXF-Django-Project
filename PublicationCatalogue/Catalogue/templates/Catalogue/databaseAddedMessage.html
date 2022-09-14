@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Add {{ newEntry.modelType }} to the Database</title>
+  </head>
+  <body>
+    <h1>Add {{ newEntry.modelType }} to the Database</h1>
+    <p>Message: {{ message }}</p> 
+    {% if newEntry.modelType == 'Tag' %}
+        <p>Tag Name: {{newEntry.tagName}}</p>
+    {% endif %}
+  </body>
+</html>

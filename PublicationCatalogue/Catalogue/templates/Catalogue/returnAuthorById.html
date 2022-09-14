@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Author Details: </h1>
+    {% if author %}
+        <h2>Author's Name: {{ author.authorName }}</h2>
+        <table border="1">
+            <tr>
+                <th>Author's Name</th>
+                <th>Notes</th>
+                <th>Tag(s)</th>
+            </tr>
+            <tr>
+                <td>{{ author.authorName }}</td>
+                <td>{{ article.notes }}</td>          
+                <td>
+                    {% for tag in author.tag.all %}
+                    <a href="{% url 'tag' tag.id %}">{{ tag.tagName }}</a><br />
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+
+        <h3>Registered Articles</h3>
+        {% if articles %}
+        <table border="1">
+            <tr>
+                <th>Article Name</th>
+                <th>Keywords</th>
+                <th>Notes</th>
+                <th>Summary</th>
+                <th>Edition</th>
+                <th>Publication(s)</th>
+                <th>Author(s)</th>
+            </tr>
+                {% for article in articles %}
+                    <tr>
+                        <td><a href="{% url 'article' article.id %}">{{ article.articleName }}</a></td>
+                        <td>{{ article.keywords }}</td>
+                        <td>{{ article.notes }}</td>          
+                        <td>{{ article.summary }}</td>       
+                        <td>                             
+                            {% for edition in article.edition.all %}
+                                <a href="{% url 'edition' edition.id %}">{{ edition.editionName }}</a><br />
+                            {%endfor %}
+                        </td>
+                        <td>
+                            {% for edition in article.edition.all %}
+                                <a href="{% url 'publication' edition.publication.id %}">{{ edition.publication.publicationName }}</a><br />
+                            {%endfor %}
+                        </td>
+                        <td>
+                            {% for author in article.author.all %}
+                                <a href="{% url 'author' author.id %}" > {{ author.authorName }}</a><br />
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+        {% else %}
+            <p>No articles registered with this author.</p>
+        {% endif %}
+    {% else %}
+        <p>No author with this ID</p>
+    {% endif %}   
+    </table>
+  </body>
+</html>

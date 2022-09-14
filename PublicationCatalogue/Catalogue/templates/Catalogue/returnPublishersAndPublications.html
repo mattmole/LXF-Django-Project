@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Publications</title>
+  </head>
+  <body>
+    <h1>Publishers and Publications</h1>
+    {% regroup publicationList by publisher as pubList %}
+      {% for publisher, publications in pubList%}
+        <h2>{{publisher}}</h2>
+        <ul>
+          {% for publication in publications %}
+            <li><a href="{% url 'publication' publication.id %}">{{publication.publicationName}}</a></li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+  </body>
+</html>

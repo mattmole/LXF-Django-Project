@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Editions</title>
+  </head>
+  <body>
+    <h1>List of Editions</h1>
+    {% if editions %}
+      <table>
+        <tr>
+          <th>Edition Name</th>
+          <th>Publication Date</th>
+          <th>Publication</th>
+        </tr>
+        {% for edition in editions %}
+          <tr>    
+            <td><a href="{% url 'edition' edition.id %}">{{ edition.editionName }}</a></td>
+            <td>{{ edition.publicationDate }}</td>
+            <td><a href="{% url 'publication' edition.publication.id %}">{{ edition.publication.publicationName }}</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+        <p>No editions are available.</p>
+    {% endif %}
+
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Search Results</title>
+  </head>
+  <body>
+    <h1>List of Search Results</h1>
+    {% if searchResults %}
+        <table>
+          <thead>
+            <tr>
+              <th>Result Type</th>
+              <th>Result Name</th>
+            </tr>
+          </thead>
+        {% for result in searchResults %}
+          <tr>
+            <td>{{result.modelType}}</td>
+            {% if result.modelType == "Tag" %}
+              <td><a href="{% url 'tag' result.id %}" >{{ result.tagName }}</a></th>
+            {% elif result.modelType == "Publication" %}
+              <td><a href="{% url 'publication' result.id %}" >{{ result.publicationName }}</a></th>
+            {% elif result.modelType == "Publisher" %}
+              <td><a href="{% url 'publisher' result.id %}" >{{ result.publisherName }}</a></th>
+            {% elif result.modelType == "Article" %}
+              <td><a href="{% url 'article' result.id %}" >{{ result.articleName }}</a></th>
+            {% elif result.modelType == "Author" %}
+              <td><a href="{% url 'author' result.id %}" >{{ result.authorName }}</a></th>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        </table>
+        <p>
+        <button type="button" onclick="tableToCSV()">
+          &#8595 Download CSV
+      </button>
+    </p>
+    {% else %}
+        <p>No results are available.</p>
+    {% endif %}
+
+
+    <script type="text/javascript">
+          // Javascript adapted from https://www.geeksforgeeks.org/how-to-export-html-table-to-csv-using-javascript/
+
+      function tableToCSV() {
+
+          // Variable to store the final csv data
+          var csv_data = [];
+
+          // Get each row data
+          var rows = document.getElementsByTagName('tr');
+          for (var i = 0; i < rows.length; i++) {
+
+              // Get each column data
+              var cols = rows[i].querySelectorAll('td,th');
+
+              // Stores each csv row data
+              var csvrow = [];
+              // Get the text data of each cell
+              // of a row and push it to csvrow
+              for (var j = 0; j < cols.length; j++) {
+                // Test if a column contains a link
+                // If so, strip the link tags
+                var links = cols[j].querySelectorAll("a")
+                if (links.length > 0){
+                  for (var k=0; k<links.length; k++){
+                    csvrow.push(links[k].innerHTML);
+                  }
+                //If the column does not contain a link, then use the text
+                }else{
+                  csvrow.push(cols[j].innerHTML);
+                }
+              }
+
+              // Combine each column value with comma
+              csv_data.push(csvrow.join(","));
+          }
+
+          // Combine each row data with new line character
+          csv_data = csv_data.join('\n');
+
+          // Call this function to download csv file 
+          downloadCSVFile(csv_data);
+
+      }
+
+      function downloadCSVFile(csv_data) {
+
+          // Create CSV file object and feed
+          // our csv_data into it
+          CSVFile = new Blob([csv_data], {
+              type: "text/csv"
+          });
+
+          // Create to temporary link to initiate
+          // download process
+          var temp_link = document.createElement('a');
+
+          // Download csv file
+          temp_link.download = "searchResults.csv";
+          var url = window.URL.createObjectURL(CSVFile);
+          temp_link.href = url;
+
+          // This link should not be displayed
+          temp_link.style.display = "none";
+          document.body.appendChild(temp_link);
+
+          // Automatically click the link to
+          // trigger download
+          temp_link.click();
+          document.body.removeChild(temp_link);
+      }
+  </script>
+
+
+  </body>
+</html>

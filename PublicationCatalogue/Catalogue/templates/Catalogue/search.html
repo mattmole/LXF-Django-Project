@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Tags</title>
+  </head>
+  <body>
+    <h1>Search the Database</h1>
+    <p>All results will be shown for a given model or all models by using the fuzzy search option and leaving the searchTerm blank or using the * character</p>
+    <form action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Publication Database</title>
+  </head>
+  <body>
+    <h1>Publication Database</h1>
+    <h2>Search the Database</h2>
+    <ul>
+    <li><a href="{% url 'search' %}">Search the Database</a></li>
+    </ul>
+    <h2>View data in the database</h2>
+    <ul>
+    <li><a href="{% url 'articleList' %}">Articles</a></li>
+    <li><a href="{% url 'tagList' %}">Tags</a></li>
+    <li><a href="{% url 'authorList' %}">Authors</a></li>
+    <li><a href="{% url 'publicationAndPublishersList' %}">Publications and Publishers</a></li>
+    <li><a href="{% url 'editionList' %}">Editions</a></li>
+    </ul>
+    <h2>Add Data to the database</h2>
+      <ul>
+        <li><a href="{% url 'addTag' %}">Add Tag to the Database</a></li>
+      </ul>
+      <h2>Export Data from the database</h2>
+      <ul>
+        <li><a href="{% url 'exportTagsToCsv' %}">Export Tags to CSV</a</li>
+      </ul>
+  </body>
+</html>

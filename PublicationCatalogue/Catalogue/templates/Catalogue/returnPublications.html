@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>List of Publications</title>
+  </head>
+  <body>
+    <h1>List of Publications</h1>
+    {% if publicationList %}
+      <table>
+        <tr>
+          <th>Publication</th>
+          <th>Publisher</th>
+        </tr>
+        {% for publication in publicationList %}
+          <tr>
+              <td><a href="{% url 'publication' publication.id %}">{{ publication.publicationName }}</a></td>
+              <td><a href="{% url 'publisher' publication.publisher.id %}">{{ publication.publisher.publisherName }}</a></td>
+              </td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+        <p>No publications are available.</p>
+    {% endif %}
+  </body>
+</html>
